@@ -8,6 +8,11 @@ const app = new Application({
   backgroundColor: 0xff000,
 });
 
+const gameScene = new Container();
+
+let state = "mainMenu";
+const mainScene = new Container();
+
 function createGameScene(gameScene) {
   const background = new Container();
   gameScene.addChild(background);
@@ -109,41 +114,66 @@ function createGameScene(gameScene) {
         const player = players.children[index];
 
         if (enemy.getBounds().intersects(player.getBounds())) {
-          players.removeChild(player);
-          console.log("collision happened");
+          //   players.removeChild(player);
+          createMainScene(mainScene);
+          state = "mainMenu";
         }
       }
     }
   };
 }
 
-const gameScene = new Container();
 const updateScene = createGameScene(gameScene);
 
-let state = "mainMenu";
+// function createMainStage(gameScene) {
+createMainScene(mainScene);
+// const style = new TextStyle({ fill: "#00000", fontSize: 20 });
+// const field = new Text("Start Game", style);
+// field.interactive = true;
+// field.buttonMode = true;
+// field.scale.x = 2;
+// field.position.x = 300;
+// field.position.y = 300;
+// mainScene.addChild(field);
+// field.on("click", () => {
+//   state = "game";
+//   app.stage.removeChild(mainScene);
+//   app.stage.addChild(gameScene);
+// });
 
-const mainScene = new Container();
+// app.stage.addChild(mainScene);
 
-const style = new TextStyle({ fill: "#00000", fontSize: 20 });
-const field = new Text("Start Game", style);
-field.interactive = true;
-field.buttonMode = true;
-field.scale.x = 2;
-field.position.x = 300;
-field.position.y = 300;
-mainScene.addChild(field);
-field.on("click", () => {
-  state = "game";
-  app.stage.removeChild(mainScene);
-  app.stage.addChild(gameScene);
-});
-
-app.stage.addChild(mainScene);
-
-app.ticker.add((delay) => {
-  if (state === "game") {
-    updateScene(delay);
-  }
-});
+// app.ticker.add((delay) => {
+//   if (state === "game") {
+//     updateScene(delay);
+//   }
+// });
+// }
 
 console.log("Hello, World");
+
+function createMainScene(mainScene) {
+  //   const mainScene = new Container();
+
+  const style = new TextStyle({ fill: "#00000", fontSize: 20 });
+  const field = new Text("Start Game", style);
+  field.interactive = true;
+  field.buttonMode = true;
+  field.scale.x = 2;
+  field.position.x = 300;
+  field.position.y = 300;
+  mainScene.addChild(field);
+  field.on("click", () => {
+    state = "game";
+    app.stage.removeChild(mainScene);
+    app.stage.addChild(gameScene);
+  });
+
+  app.stage.addChild(mainScene);
+
+  app.ticker.add((delay) => {
+    if (state === "game") {
+      updateScene(delay);
+    }
+  });
+}
