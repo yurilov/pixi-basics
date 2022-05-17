@@ -1,6 +1,7 @@
+const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 const canvas = document.querySelector("canvas");
 
-const app = new PIXI.Application({
+const app = new Application({
   view: canvas,
   width: 600,
   height: 500,
@@ -8,19 +9,19 @@ const app = new PIXI.Application({
 });
 
 function createGameScene(gameScene) {
-  const background = new PIXI.Container();
+  const background = new Container();
   gameScene.addChild(background);
 
-  const players = new PIXI.Container();
+  const players = new Container();
   gameScene.addChild(players);
 
-  const bullets = new PIXI.Container();
+  const bullets = new Container();
   gameScene.addChild(bullets);
 
-  const enemies = new PIXI.Container();
+  const enemies = new Container();
   gameScene.addChild(enemies);
 
-  const sprite = PIXI.Sprite.from("resources/player.png");
+  const sprite = Sprite.from("resources/player.png");
   sprite.position.x = 100;
   sprite.position.y = 150;
   players.addChild(sprite);
@@ -35,7 +36,7 @@ function createGameScene(gameScene) {
   const enemyCount = 10;
 
   for (let index = 0; index < enemyCount; index++) {
-    const enemy = PIXI.Sprite.from("resources/enemy.png");
+    const enemy = Sprite.from("resources/enemy.png");
     enemy.position.x = index * 50;
     enemy.position.y = 50;
     enemies.addChild(enemy);
@@ -75,7 +76,7 @@ function createGameScene(gameScene) {
       const currentTime = Date.now();
 
       if (currentTime - lastBulletSpawnTime > spawnSpeed) {
-        const bullet = PIXI.Sprite.from("resources/bullet.png");
+        const bullet = Sprite.from("resources/bullet.png");
         bullet.position.x = sprite.position.x;
         bullet.position.y = sprite.position.y;
         bullet.scale.x = 0.25;
@@ -104,21 +105,27 @@ function createGameScene(gameScene) {
 
     for (const enemy of enemies.children) {
       enemy.position.y += 2 * delay;
+      for (let index = 0; index < players.children.length; index++) {
+        const player = players.children[index];
 
-      // ??
+        if (enemy.getBounds().intersects(player.getBounds())) {
+          players.removeChild(player);
+          console.log("collision happened");
+        }
+      }
     }
   };
 }
 
-const gameScene = new PIXI.Container();
+const gameScene = new Container();
 const updateScene = createGameScene(gameScene);
 
 let state = "mainMenu";
 
-const mainScene = new PIXI.Container();
+const mainScene = new Container();
 
-const style = new PIXI.TextStyle({ fill: "#00000", fontSize: 20 });
-const field = new PIXI.Text("Start Game", style);
+const style = new TextStyle({ fill: "#00000", fontSize: 20 });
+const field = new Text("Start Game", style);
 field.interactive = true;
 field.buttonMode = true;
 field.scale.x = 2;
