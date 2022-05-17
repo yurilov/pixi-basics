@@ -11,7 +11,7 @@ const app = new Application({
 const gameScene = new Container();
 
 let state = "mainMenu";
-const mainScene = new Container();
+// const mainScene = new Container();
 
 function createGameScene(gameScene) {
   const background = new Container();
@@ -105,17 +105,24 @@ function createGameScene(gameScene) {
         if (enemy.getBounds().intersects(bullet.getBounds())) {
           enemies.removeChild(enemy);
         }
+        if (enemies.children.length === 0) {
+          state = "winScreen";
+          console.log(state);
+        }
       }
     }
 
     for (const enemy of enemies.children) {
       enemy.position.y += 2 * delay;
+      if (enemy.position.y >= app.screen.width) {
+        enemy.position.y = 0;
+      }
       for (let index = 0; index < players.children.length; index++) {
         const player = players.children[index];
 
         if (enemy.getBounds().intersects(player.getBounds())) {
           //   players.removeChild(player);
-          createMainScene(mainScene);
+          // createMainScene(mainScene);
           state = "mainMenu";
         }
       }
@@ -125,55 +132,48 @@ function createGameScene(gameScene) {
 
 const updateScene = createGameScene(gameScene);
 
-// function createMainStage(gameScene) {
-createMainScene(mainScene);
-// const style = new TextStyle({ fill: "#00000", fontSize: 20 });
-// const field = new Text("Start Game", style);
-// field.interactive = true;
-// field.buttonMode = true;
-// field.scale.x = 2;
-// field.position.x = 300;
-// field.position.y = 300;
-// mainScene.addChild(field);
-// field.on("click", () => {
-//   state = "game";
-//   app.stage.removeChild(mainScene);
-//   app.stage.addChild(gameScene);
-// });
-
-// app.stage.addChild(mainScene);
-
-// app.ticker.add((delay) => {
-//   if (state === "game") {
-//     updateScene(delay);
-//   }
-// });
-// }
+// createMainScene(mainScene);
 
 console.log("Hello, World");
 
-function createMainScene(mainScene) {
-  //   const mainScene = new Container();
+// function createMainScene(mainScene) {
+const mainScene = new Container();
 
-  const style = new TextStyle({ fill: "#00000", fontSize: 20 });
-  const field = new Text("Start Game", style);
-  field.interactive = true;
-  field.buttonMode = true;
-  field.scale.x = 2;
-  field.position.x = 300;
-  field.position.y = 300;
-  mainScene.addChild(field);
-  field.on("click", () => {
-    state = "game";
-    app.stage.removeChild(mainScene);
-    app.stage.addChild(gameScene);
-  });
+const style = new TextStyle({ fill: "#00000", fontSize: 20 });
+const field = new Text("Start Game", style);
+field.interactive = true;
+field.buttonMode = true;
+field.scale.x = 2;
+field.position.x = 300;
+field.position.y = 300;
+mainScene.addChild(field);
+field.on("click", () => {
+  state = "game";
+  app.stage.removeChild(mainScene);
+  app.stage.addChild(gameScene);
+});
 
-  app.stage.addChild(mainScene);
+app.stage.addChild(mainScene);
+const winField = new Text("You won", style);
+winField.scale.x = 2;
+winField.position.x = 400;
+winField.position.y = 400;
+app.ticker.add((delay) => {
+  if (state === "game") {
+    updateScene(delay);
+  }
 
-  app.ticker.add((delay) => {
-    if (state === "game") {
-      updateScene(delay);
-    }
-  });
-}
+  if (state === "mainMenu") {
+    app.stage.removeChild(gameScene);
+    app.stage.addChild(mainScene);
+    // createGameScene(mainScene)(delay);
+  }
+
+  if (state === "winScreen") {
+    app.stage.addChild(mainScene);
+
+    mainScene.addChild(winField);
+    app.stage.removeChild(gameScene);
+  }
+});
+// }
