@@ -217,5 +217,3 @@ function createScore(gameScene, stats) {
 function updateScore(stats) {
   stats.children[0].text = `Enemies killed: ${score}`;
 }
-
-function updateLivesCount() {}
