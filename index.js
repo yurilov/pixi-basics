@@ -12,6 +12,8 @@ const gameScene = new Container();
 
 let state = "mainMenu";
 let score = 0;
+let livesCount = 3;
+
 function createGameScene(gameScene) {
   const background = new Container();
   gameScene.addChild(background);
@@ -37,7 +39,6 @@ function createGameScene(gameScene) {
 
   let isMouseFlag = false;
   let lastBulletSpawnTime = 0;
-  let livesCount = 3;
   const spawnSpeed = 250;
   const keysMaps = {};
   const speed = 10;
@@ -142,6 +143,8 @@ function createGameScene(gameScene) {
           // createMainScene(mainScene);
           enemies.removeChild(enemy);
           livesCount -= 1;
+          score += 1;
+          updateScore(stats);
           lives.children.pop();
           // state = "mainMenu";
         }
@@ -155,10 +158,14 @@ function createGameScene(gameScene) {
 
 const updateScene = createGameScene(gameScene);
 
-// function createMainScene(mainScene) {
 const mainScene = new Container();
 
-const style = new TextStyle({ fill: "#00000", fontSize: 20 });
+const style = new TextStyle({
+  fill: "#00000",
+  fontSize: 20,
+  wordWrap: true,
+  wordWrapWidth: app.screen.width / 2 - 100,
+});
 const field = new Text("Start Game", style);
 field.interactive = true;
 field.buttonMode = true;
@@ -174,15 +181,25 @@ field.on("click", () => {
 
 app.stage.addChild(mainScene);
 
-const winField = new Text("You won", style);
-winField.scale.x = 2;
-winField.position.x = app.screen.width / 2 - winField.width / 2;
-winField.position.y = app.screen.height / 2;
+function showWinScreen() {
+  const winField = new Text(
+    `You won. Final score is: ${score}. Lives left: ${livesCount}`,
+    style
+  );
+  winField.scale.x = 2;
+  winField.position.x = app.screen.width / 2 - winField.width / 2;
+  winField.position.y = app.screen.height / 2;
+  app.stage.addChild(winField);
+}
 
-const lostField = new Text("You lost", style);
-lostField.scale.x = 2;
-lostField.position.x = app.screen.width / 2 - winField.width / 2;
-lostField.position.y = app.screen.height / 2;
+function showLoseScreen() {
+  const lostField = new Text(`You lost. Final score is: ${score}`, style);
+  lostField.scale.x = 2;
+  lostField.position.x = app.screen.width / 2 - lostField.width / 2;
+  lostField.position.y = app.screen.height / 2;
+  app.stage.addChild(lostField);
+}
+
 app.ticker.add((delay) => {
   if (state === "game") {
     updateScene(delay);
@@ -191,20 +208,18 @@ app.ticker.add((delay) => {
   if (state === "mainMenu") {
     app.stage.removeChild(gameScene);
     app.stage.addChild(mainScene);
-    // createGameScene(mainScene)(delay);
   }
 
   if (state === "winScreen") {
-    app.stage.addChild(winField);
+    showWinScreen();
     app.stage.removeChild(gameScene);
   }
 
   if (state === "gameOver") {
     app.stage.removeChild(gameScene);
-    app.stage.addChild(lostField);
+    showLoseScreen();
   }
 });
-// }
 
 function createScore(gameScene, stats) {
   gameScene.addChild(stats);
