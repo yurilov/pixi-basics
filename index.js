@@ -3,9 +3,9 @@ const canvas = document.querySelector("canvas");
 
 const app = new Application({
   view: canvas,
-  width: 600,
-  height: 500,
-  backgroundColor: 0x3bf4b,
+  width: 1000,
+  height: 600,
+  backgroundColor: 2050423,
 });
 
 const gameScene = new Container();
@@ -17,6 +17,8 @@ let livesCount = 3;
 function createGameScene(gameScene) {
   const background = new Container();
   gameScene.addChild(background);
+  const backgroundImg = new Sprite.from("resources/bcg.png");
+  background.addChild(backgroundImg);
 
   const players = new Container();
   gameScene.addChild(players);
@@ -44,7 +46,7 @@ function createGameScene(gameScene) {
   const speed = 10;
   const bulletSpeed = 15;
 
-  const enemyCount = 10;
+  const enemyCount = 15;
 
   for (let index = 0; index < livesCount; index++) {
     const heart = Sprite.from("resources/heart.png");
@@ -58,7 +60,7 @@ function createGameScene(gameScene) {
 
   for (let index = 0; index < enemyCount; index++) {
     const enemy = Sprite.from("resources/enemy.png");
-    enemy.position.x = index * 60;
+    enemy.position.x = index * 65;
     enemy.position.y = 50;
     enemies.addChild(enemy);
   }
@@ -98,7 +100,7 @@ function createGameScene(gameScene) {
 
       if (currentTime - lastBulletSpawnTime > spawnSpeed) {
         const bullet = Sprite.from("./resources/bullet.png");
-        bullet.position.x = sprite.position.x;
+        bullet.position.x = sprite.position.x + sprite.width / 4;
         bullet.position.y = sprite.position.y;
         bullet.scale.x = 0.25;
         bullet.scale.y = 0.25;
@@ -126,14 +128,13 @@ function createGameScene(gameScene) {
         if (enemies.children.length === 0) {
           state = "winScreen";
           showWinScreen();
-          console.log(state);
         }
       }
     }
 
     for (const enemy of enemies.children) {
       enemy.position.y += 2 * delay;
-      if (enemy.position.y >= app.screen.width) {
+      if (enemy.position.y >= app.screen.height) {
         enemy.position.y = 0 + delay;
       }
       for (let index = 0; index < players.children.length; index++) {
@@ -148,6 +149,11 @@ function createGameScene(gameScene) {
           updateScore(stats);
           lives.children.pop();
           // state = "mainMenu";
+        }
+
+        if (enemies.children.length === 0) {
+          state = "winScreen";
+          showWinScreen();
         }
       }
     }
@@ -168,6 +174,7 @@ const style = new TextStyle({
   wordWrap: true,
   wordWrapWidth: app.screen.width / 2 - 100,
 });
+
 const field = new Text("Start Game", style);
 field.interactive = true;
 field.buttonMode = true;
@@ -232,3 +239,5 @@ function createScore(gameScene, stats) {
 function updateScore(stats) {
   stats.children[0].text = `Enemies killed: ${score}`;
 }
+
+function continueGame() {}
