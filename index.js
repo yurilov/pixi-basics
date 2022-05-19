@@ -5,7 +5,7 @@ const app = new Application({
   view: canvas,
   width: 1000,
   height: 600,
-  backgroundColor: 2050423,
+  backgroundColor: 138298,
 });
 
 const gameScene = new Container();
@@ -169,8 +169,9 @@ const updateScene = createGameScene(gameScene);
 const mainScene = new Container();
 
 const style = new TextStyle({
-  fill: "#00000",
-  fontSize: 20,
+  fontFamily: "Arial",
+  fill: "#FFF",
+  fontSize: 36,
   wordWrap: true,
   wordWrapWidth: app.screen.width / 2 - 100,
 });
@@ -178,7 +179,6 @@ const style = new TextStyle({
 const field = new Text("Start Game", style);
 field.interactive = true;
 field.buttonMode = true;
-field.scale.x = 2;
 field.position.x = app.screen.width / 2 - 100;
 field.position.y = app.screen.height / 2;
 mainScene.addChild(field);
@@ -193,6 +193,9 @@ app.stage.addChild(mainScene);
 app.ticker.add((delay) => {
   if (state === "game") {
     updateScene(delay);
+  }
+
+  if (state === "secondLevel") {
   }
 
   if (state === "mainMenu") {
@@ -214,23 +217,39 @@ function showWinScreen() {
     `You won. Final score is: ${score}. Lives left: ${livesCount}`,
     style
   );
-  winField.scale.x = 2;
   winField.position.x = app.screen.width / 2 - winField.width / 2;
-  winField.position.y = app.screen.height / 2;
+  winField.position.y = app.screen.height / 2 - winField.height / 2;
   app.stage.addChild(winField);
 }
 
 function showLoseScreen() {
   const lostField = new Text(`You lost. Final score is: ${score}`, style);
-  lostField.scale.x = 2;
   lostField.position.x = app.screen.width / 2 - lostField.width / 2;
   lostField.position.y = app.screen.height / 2;
   app.stage.addChild(lostField);
+
+  // const restartField = new Text("Restart Game", style);
+  // restartField.interactive = true;
+  // restartField.buttonMode = true;
+  // restartField.position.x = app.screen.width - restartField.width;
+  // restartField.position.y = app.screen.height - restartField.height;
+
+  // restartField.on("click", () => {
+  //   state = "game";
+  //   app.stage.removeChild(mainScene);
+  //   app.stage.addChild(gameScene);
+  // });
+
+  // app.stage.addChild(restartField);
 }
 
 function createScore(gameScene, stats) {
   gameScene.addChild(stats);
-  const scoreStyle = new TextStyle({ fill: "#FFFFFF", fontSize: 14 });
+  const scoreStyle = new TextStyle({
+    fill: "#FFFFFF",
+    fontSize: 20,
+    fontFamily: "Arial",
+  });
 
   const scoreText = new Text(`Enemies killed: ${score}`, scoreStyle);
   stats.addChild(scoreText);
@@ -239,5 +258,3 @@ function createScore(gameScene, stats) {
 function updateScore(stats) {
   stats.children[0].text = `Enemies killed: ${score}`;
 }
-
-function continueGame() {}
