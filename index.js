@@ -97,7 +97,7 @@ function createGameScene(gameScene) {
       const currentTime = Date.now();
 
       if (currentTime - lastBulletSpawnTime > spawnSpeed) {
-        const bullet = Sprite.from("resources/bullet.png");
+        const bullet = Sprite.from("./resources/bullet.png");
         bullet.position.x = sprite.position.x;
         bullet.position.y = sprite.position.y;
         bullet.scale.x = 0.25;
@@ -125,6 +125,7 @@ function createGameScene(gameScene) {
         }
         if (enemies.children.length === 0) {
           state = "winScreen";
+          showWinScreen();
           console.log(state);
         }
       }
@@ -152,6 +153,7 @@ function createGameScene(gameScene) {
     }
     if (livesCount === 0) {
       state = "gameOver";
+      showLoseScreen();
     }
   };
 }
@@ -181,6 +183,25 @@ field.on("click", () => {
 
 app.stage.addChild(mainScene);
 
+app.ticker.add((delay) => {
+  if (state === "game") {
+    updateScene(delay);
+  }
+
+  if (state === "mainMenu") {
+    app.stage.removeChild(gameScene);
+    app.stage.addChild(mainScene);
+  }
+
+  if (state === "winScreen") {
+    app.stage.removeChild(gameScene);
+  }
+
+  if (state === "gameOver") {
+    app.stage.removeChild(gameScene);
+  }
+});
+
 function showWinScreen() {
   const winField = new Text(
     `You won. Final score is: ${score}. Lives left: ${livesCount}`,
@@ -199,27 +220,6 @@ function showLoseScreen() {
   lostField.position.y = app.screen.height / 2;
   app.stage.addChild(lostField);
 }
-
-app.ticker.add((delay) => {
-  if (state === "game") {
-    updateScene(delay);
-  }
-
-  if (state === "mainMenu") {
-    app.stage.removeChild(gameScene);
-    app.stage.addChild(mainScene);
-  }
-
-  if (state === "winScreen") {
-    showWinScreen();
-    app.stage.removeChild(gameScene);
-  }
-
-  if (state === "gameOver") {
-    app.stage.removeChild(gameScene);
-    showLoseScreen();
-  }
-});
 
 function createScore(gameScene, stats) {
   gameScene.addChild(stats);
