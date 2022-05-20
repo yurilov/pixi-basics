@@ -9,14 +9,16 @@ const app = new Application({
 });
 
 const gameScene = new Container();
+const secondLevelScene = new Container();
 
 let state = "mainMenu";
 let score = 0;
 let livesCount = 3;
 
-function createGameScene(gameScene) {
+function createGameScene(gameScene, enemySpeed = 2) {
   const background = new Container();
   gameScene.addChild(background);
+
   const backgroundImg = new Sprite.from("resources/bcg.png");
   background.addChild(backgroundImg);
 
@@ -133,7 +135,7 @@ function createGameScene(gameScene) {
     }
 
     for (const enemy of enemies.children) {
-      enemy.position.y += 2 * delay;
+      enemy.position.y += enemySpeed * delay;
       if (enemy.position.y >= app.screen.height) {
         enemy.position.y = 0 + delay;
       }
@@ -165,6 +167,7 @@ function createGameScene(gameScene) {
 }
 
 const updateScene = createGameScene(gameScene);
+// const updateSecondLevelScene = createGameScene(secondLevelScene);
 
 const mainScene = new Container();
 
@@ -196,6 +199,7 @@ app.ticker.add((delay) => {
   }
 
   if (state === "secondLevel") {
+    createGameScene(secondLevelScene, 3)(delay);
   }
 
   if (state === "mainMenu") {
@@ -220,6 +224,20 @@ function showWinScreen() {
   winField.position.x = app.screen.width / 2 - winField.width / 2;
   winField.position.y = app.screen.height / 2 - winField.height / 2;
   app.stage.addChild(winField);
+
+  const nextLevel = new Text("Next level", style);
+  nextLevel.interactive = true;
+  nextLevel.buttonMode = true;
+  nextLevel.position.x = app.screen.width - nextLevel.width;
+  nextLevel.position.y = app.screen.height - nextLevel.height;
+
+  nextLevel.on("click", () => {
+    state = "secondLevel";
+    app.stage.removeChild(winField);
+    app.stage.addChild(secondLevelScene);
+  });
+
+  app.stage.addChild(nextLevel);
 }
 
 function showLoseScreen() {
