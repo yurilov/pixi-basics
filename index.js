@@ -198,9 +198,9 @@ app.ticker.add((delay) => {
     updateScene(delay);
   }
 
-  if (state === "secondLevel") {
-    createGameScene(secondLevelScene, 3)(delay);
-  }
+  // if (state === "secondLevel") {
+  //   createGameScene(secondLevelScene, 3)(delay);
+  // }
 
   if (state === "mainMenu") {
     app.stage.removeChild(gameScene);
@@ -230,14 +230,12 @@ function showWinScreen() {
   nextLevel.buttonMode = true;
   nextLevel.position.x = app.screen.width - nextLevel.width;
   nextLevel.position.y = app.screen.height - nextLevel.height;
-
+  app.stage.addChild(nextLevel);
   nextLevel.on("click", () => {
     state = "secondLevel";
     app.stage.removeChild(winField);
     app.stage.addChild(secondLevelScene);
   });
-
-  app.stage.addChild(nextLevel);
 }
 
 function showLoseScreen() {
