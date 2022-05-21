@@ -1,13 +1,16 @@
 import Background from "./js/Background.js";
 import GameScore from "./js/GameScore.js";
+import Lives from "./js/Lives.js";
 
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 const canvas = document.querySelector("canvas");
+const gameWidth = 1000;
+const gameHeight = 600;
 
 const app = new Application({
   view: canvas,
-  width: 1000,
-  height: 600,
+  width: gameWidth,
+  height: gameHeight,
   backgroundColor: 138298,
 });
 
@@ -34,8 +37,9 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const stats = new GameScore(score);
   gameScene.addChild(stats);
 
-  const lives = new Container();
+  const lives = new Lives(livesCount, gameWidth, gameHeight);
   gameScene.addChild(lives);
+
   const sprite = Sprite.from("resources/player.png");
   sprite.position.x = app.screen.width * 0.5;
   sprite.position.y = app.screen.height * 0.9;
@@ -49,16 +53,6 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const bulletSpeed = 15;
 
   const enemyCount = 15;
-
-  for (let index = 0; index < livesCount; index++) {
-    const heart = Sprite.from("resources/heart.png");
-    heart.width = 20;
-    heart.height = 20;
-    heart.position.x = app.screen.width - 25 - index * 25;
-    heart.position.y = 5;
-
-    lives.addChild(heart);
-  }
 
   for (let index = 0; index < enemyCount; index++) {
     const enemy = Sprite.from("resources/enemy.png");
@@ -149,7 +143,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
           livesCount -= 1;
           score += 1;
           stats.updateScore(score);
-          lives.children.pop();
+          lives.loseLife();
           // state = "mainMenu";
         }
 
