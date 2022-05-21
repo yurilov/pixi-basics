@@ -1,3 +1,5 @@
+import { Background } from "./js/Background.js";
+
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 const canvas = document.querySelector("canvas");
 
@@ -16,11 +18,8 @@ let score = 0;
 let livesCount = 3;
 
 function createGameScene(gameScene, enemySpeed = 2) {
-  const background = new Container();
+  const background = new Background();
   gameScene.addChild(background);
-
-  const backgroundImg = new Sprite.from("resources/bcg.png");
-  background.addChild(backgroundImg);
 
   const players = new Container();
   gameScene.addChild(players);
