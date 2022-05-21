@@ -1,4 +1,5 @@
-import { Background } from "./js/Background.js";
+import Background from "./js/Background.js";
+import GameScore from "./js/GameScore.js";
 
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 const canvas = document.querySelector("canvas");
@@ -30,8 +31,8 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const enemies = new Container();
   gameScene.addChild(enemies);
 
-  const stats = new Container();
-  createScore(gameScene, stats);
+  const stats = new GameScore(score);
+  gameScene.addChild(stats);
 
   const lives = new Container();
   gameScene.addChild(lives);
@@ -124,7 +125,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
         if (enemy.getBounds().intersects(bullet.getBounds())) {
           enemies.removeChild(enemy);
           score += 1;
-          updateScore(stats);
+          stats.updateScore(score);
         }
         if (enemies.children.length === 0) {
           state = "winScreen";
@@ -147,7 +148,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
           enemies.removeChild(enemy);
           livesCount -= 1;
           score += 1;
-          updateScore(stats);
+          stats.updateScore(score);
           lives.children.pop();
           // state = "mainMenu";
         }
@@ -256,20 +257,4 @@ function showLoseScreen() {
   // });
 
   // app.stage.addChild(restartField);
-}
-
-function createScore(gameScene, stats) {
-  gameScene.addChild(stats);
-  const scoreStyle = new TextStyle({
-    fill: "#FFFFFF",
-    fontSize: 20,
-    fontFamily: "Arial",
-  });
-
-  const scoreText = new Text(`Enemies killed: ${score}`, scoreStyle);
-  stats.addChild(scoreText);
-}
-
-function updateScore(stats) {
-  stats.children[0].text = `Enemies killed: ${score}`;
 }

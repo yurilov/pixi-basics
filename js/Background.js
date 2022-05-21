@@ -1,6 +1,6 @@
 const { Container, Sprite } = PIXI;
 
-export class Background extends Container {
+export default class Background extends Container {
   constructor() {
     super();
     this.setup();
