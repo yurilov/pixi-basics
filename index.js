@@ -40,6 +40,9 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const keysMaps = {};
   const speed = 10;
   const bulletSpeed = 15;
+  const collisionEffectDuration = 1000;
+  let lastCollisionTime = 0;
+  let isDamaged = false;
 
   const background = new Background();
   gameScene.addChild(background);
@@ -105,6 +108,19 @@ function createGameScene(gameScene, enemySpeed = 2) {
       }
     }
 
+    if (isDamaged) {
+      const currentTime = Date.now();
+
+      const checkIfTimePassed =
+        currentTime - lastCollisionTime > collisionEffectDuration;
+
+      if (checkIfTimePassed) {
+        spaceShip.alpha = 1;
+        isDamaged = false;
+        lastCollisionTime = 0;
+      }
+    }
+
     for (let index = 0; index < bullets.children.length; index++) {
       const bullet = bullets.children[index];
       bullet.position.y -= bulletSpeed * delay;
@@ -139,6 +155,9 @@ function createGameScene(gameScene, enemySpeed = 2) {
           enemies.removeChild(enemy);
           livesCount -= 1;
           score += 1;
+          spaceShip.alpha = 0.5;
+          isDamaged = true;
+          lastCollisionTime = Date.now();
           stats.updateScore(score);
           lives.loseLife();
         }
