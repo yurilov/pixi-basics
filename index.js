@@ -89,6 +89,12 @@ function createGameScene(gameScene, enemySpeed = 2) {
       spaceShip.moveSpriteDown(delay);
     }
 
+    if (level !== 0) {
+      // const enemies = new Enemies(enemyCount, gameWidth, gameHeight);
+      // gameScene.addChild(enemies);
+      enemySpeed += level;
+    }
+
     if (isMouseFlag) {
       const currentTime = Date.now();
 

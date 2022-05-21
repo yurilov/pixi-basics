@@ -25,10 +25,18 @@ export default class SpaceShip extends Container {
 
   moveSpriteLeft(delay) {
     this.#sprite.position.x -= delay * this.#speed;
+
+    if (this.#sprite.position.x <= 0) {
+      this.#sprite.position.x = this.#gameWidth;
+    }
   }
 
   moveSpriteRight(delay) {
     this.#sprite.position.x += delay * this.#speed;
+
+    if (this.#sprite.position.x >= this.#gameWidth) {
+      this.#sprite.position.x = 0;
+    }
   }
 
   moveSpriteUp(delay) {
