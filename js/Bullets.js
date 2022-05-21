@@ -6,7 +6,7 @@ export default class Bullets extends Container {
   }
 
   spawnBullet(spaceShip) {
-    const bullet = Sprite.from("./resources/bullet.png");
+    const bullet = Sprite.from("../resources/bullet.png");
     bullet.position.x =
       spaceShip.getSpitePositionX() + spaceShip.getSpiteWidth() / 4;
     bullet.position.y = spaceShip.getSpitePositionY();

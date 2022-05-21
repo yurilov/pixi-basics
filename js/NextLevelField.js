@@ -1,11 +1,11 @@
 const { Text } = PIXI;
 
-export default class StartGameField extends Text {
+export default class NextLevelField extends Text {
   #gameWidth;
   #gameHeight;
 
   constructor(gameWidth, gameHeight, style) {
-    super("Start Game", style);
+    super("Next level", style);
 
     this.#gameWidth = gameWidth;
     this.#gameHeight = gameHeight;
@@ -16,7 +16,7 @@ export default class StartGameField extends Text {
   setup() {
     this.interactive = true;
     this.buttonMode = true;
-    this.position.x = this.#gameWidth / 2 - this.width / 2;
-    this.position.y = this.#gameHeight / 2 - this.height / 2;
+    this.position.x = this.#gameWidth - this.width;
+    this.position.y = this.#gameHeight - this.height;
   }
 }

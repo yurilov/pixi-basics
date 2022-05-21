@@ -5,12 +5,18 @@ import Enemies from "./js/Enemies.js";
 import StartGameField from "./js/StartGameField.js";
 import SpaceShip from "./js/SpaceShip.js";
 import Bullets from "./js/Bullets.js";
+import WinField from "./js/WinField.js";
+import LoseField from "./js/LoseField.js";
+import RestartField from "./js/RestartField.js";
+import NextLevelField from "./js/NextLevelField.js";
+import Style from "./js/Style.js";
 
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 
 const canvas = document.querySelector("canvas");
 const gameWidth = 1000;
 const gameHeight = 600;
+const style = new Style(gameWidth);
 
 const app = new Application({
   view: canvas,
@@ -20,11 +26,11 @@ const app = new Application({
 });
 
 const gameScene = new Container();
-const secondLevelScene = new Container();
 
 let state = "mainMenu";
 let score = 0;
 let livesCount = 3;
+let level = 0;
 
 function createGameScene(gameScene, enemySpeed = 2) {
   const enemyCount = 15;
@@ -110,7 +116,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
         }
         if (enemies.children.length === 0) {
           state = "winScreen";
-          showWinScreen();
+          showWinScreen(score, livesCount);
         }
       }
     }
@@ -133,29 +139,20 @@ function createGameScene(gameScene, enemySpeed = 2) {
 
         if (enemies.children.length === 0) {
           state = "winScreen";
-          showWinScreen();
+          showWinScreen(score, livesCount);
         }
       }
     }
     if (livesCount === 0) {
       state = "gameOver";
-      showLoseScreen();
+      showLoseScreen(score);
     }
   };
 }
 
 const updateScene = createGameScene(gameScene);
-// const updateSecondLevelScene = createGameScene(secondLevelScene);
 
 const mainScene = new Container();
-
-const style = new TextStyle({
-  fontFamily: "Arial",
-  fill: "#FFF",
-  fontSize: 36,
-  wordWrap: true,
-  wordWrapWidth: app.screen.width / 2 - 100,
-});
 
 const startGameField = new StartGameField(gameWidth, gameHeight, style);
 
@@ -174,9 +171,9 @@ app.ticker.add((delay) => {
     updateScene(delay);
   }
 
-  // if (state === "secondLevel") {
-  //   createGameScene(secondLevelScene, 3)(delay);
-  // }
+  if (state === "game" && level !== 0) {
+    //need to add logic for creating new levels
+  }
 
   if (state === "mainMenu") {
     app.stage.removeChild(gameScene);
@@ -192,45 +189,35 @@ app.ticker.add((delay) => {
   }
 });
 
-function showWinScreen() {
-  const winField = new Text(
-    `You won. Final score is: ${score}. Lives left: ${livesCount}`,
-    style
+function showWinScreen(score, livesCount) {
+  const winField = new WinField(
+    gameWidth,
+    gameHeight,
+    style,
+    score,
+    livesCount
   );
-  winField.position.x = app.screen.width / 2 - winField.width / 2;
-  winField.position.y = app.screen.height / 2 - winField.height / 2;
   app.stage.addChild(winField);
 
-  const nextLevel = new Text("Next level", style);
-  nextLevel.interactive = true;
-  nextLevel.buttonMode = true;
-  nextLevel.position.x = app.screen.width - nextLevel.width;
-  nextLevel.position.y = app.screen.height - nextLevel.height;
-  app.stage.addChild(nextLevel);
-  nextLevel.on("click", () => {
-    state = "secondLevel";
+  const nextLevelField = new NextLevelField(gameWidth, gameHeight, style);
+  app.stage.addChild(nextLevelField);
+  nextLevelField.on("click", () => {
+    state = "game";
+    level += 1;
     app.stage.removeChild(winField);
-    app.stage.addChild(secondLevelScene);
+    app.stage.addChild(gameScene);
   });
 }
 
-function showLoseScreen() {
-  const lostField = new Text(`You lost. Final score is: ${score}`, style);
-  lostField.position.x = app.screen.width / 2 - lostField.width / 2;
-  lostField.position.y = app.screen.height / 2;
+function showLoseScreen(score) {
+  const lostField = new LoseField(gameWidth, gameHeight, style, score);
   app.stage.addChild(lostField);
 
-  // const restartField = new Text("Restart Game", style);
-  // restartField.interactive = true;
-  // restartField.buttonMode = true;
-  // restartField.position.x = app.screen.width - restartField.width;
-  // restartField.position.y = app.screen.height - restartField.height;
-
-  // restartField.on("click", () => {
-  //   state = "game";
-  //   app.stage.removeChild(mainScene);
-  //   app.stage.addChild(gameScene);
-  // });
-
-  // app.stage.addChild(restartField);
+  const restartField = new RestartField(gameWidth, gameHeight, style);
+  app.stage.addChild(restartField);
+  restartField.on("click", () => {
+    state = "game";
+    app.stage.removeChild(mainScene);
+    app.stage.addChild(gameScene);
+  });
 }
