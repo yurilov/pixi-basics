@@ -2,8 +2,12 @@ import Background from "./js/Background.js";
 import GameScore from "./js/GameScore.js";
 import Lives from "./js/Lives.js";
 import Enemies from "./js/Enemies.js";
+import StartGameField from "./js/StartGameField.js";
+import SpaceShip from "./js/SpaceShip.js";
+import Bullets from "./js/Bullets.js";
 
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
+
 const canvas = document.querySelector("canvas");
 const gameWidth = 1000;
 const gameHeight = 600;
@@ -24,14 +28,20 @@ let livesCount = 3;
 
 function createGameScene(gameScene, enemySpeed = 2) {
   const enemyCount = 15;
+  let isMouseFlag = false;
+  let lastBulletSpawnTime = 0;
+  const spawnSpeed = 250;
+  const keysMaps = {};
+  const speed = 10;
+  const bulletSpeed = 15;
 
   const background = new Background();
   gameScene.addChild(background);
 
-  const players = new Container();
-  gameScene.addChild(players);
+  const spaceShip = new SpaceShip(gameWidth, gameHeight, speed);
+  gameScene.addChild(spaceShip);
 
-  const bullets = new Container();
+  const bullets = new Bullets();
   gameScene.addChild(bullets);
 
   const enemies = new Enemies(enemyCount, gameWidth, gameHeight);
@@ -42,18 +52,6 @@ function createGameScene(gameScene, enemySpeed = 2) {
 
   const lives = new Lives(livesCount, gameWidth, gameHeight);
   gameScene.addChild(lives);
-
-  const sprite = Sprite.from("resources/player.png");
-  sprite.position.x = app.screen.width * 0.5;
-  sprite.position.y = app.screen.height * 0.9;
-  players.addChild(sprite);
-
-  let isMouseFlag = false;
-  let lastBulletSpawnTime = 0;
-  const spawnSpeed = 250;
-  const keysMaps = {};
-  const speed = 10;
-  const bulletSpeed = 15;
 
   document.onkeydown = (event) => {
     keysMaps[event.code] = true;
@@ -73,28 +71,23 @@ function createGameScene(gameScene, enemySpeed = 2) {
 
   return (delay) => {
     if (keysMaps["ArrowLeft"]) {
-      sprite.position.x -= delay * speed;
+      spaceShip.moveSpriteLeft(delay);
     }
     if (keysMaps["ArrowRight"]) {
-      sprite.position.x += delay * speed;
+      spaceShip.moveSpriteRight(delay);
     }
     if (keysMaps["ArrowUp"]) {
-      sprite.position.y -= delay * speed;
+      spaceShip.moveSpriteUp(delay);
     }
     if (keysMaps["ArrowDown"]) {
-      sprite.position.y += delay * speed;
+      spaceShip.moveSpriteDown(delay);
     }
 
     if (isMouseFlag) {
       const currentTime = Date.now();
 
       if (currentTime - lastBulletSpawnTime > spawnSpeed) {
-        const bullet = Sprite.from("./resources/bullet.png");
-        bullet.position.x = sprite.position.x + sprite.width / 4;
-        bullet.position.y = sprite.position.y;
-        bullet.scale.x = 0.25;
-        bullet.scale.y = 0.25;
-        bullets.addChild(bullet);
+        bullets.spawnBullet(spaceShip);
 
         lastBulletSpawnTime = currentTime;
       }
@@ -127,18 +120,15 @@ function createGameScene(gameScene, enemySpeed = 2) {
       if (enemy.position.y >= app.screen.height) {
         enemy.position.y = 0 + delay;
       }
-      for (let index = 0; index < players.children.length; index++) {
-        const player = players.children[index];
+      for (let index = 0; index < spaceShip.children.length; index++) {
+        const player = spaceShip.children[index];
 
         if (enemy.getBounds().intersects(player.getBounds())) {
-          //   players.removeChild(player);
-          // createMainScene(mainScene);
           enemies.removeChild(enemy);
           livesCount -= 1;
           score += 1;
           stats.updateScore(score);
           lives.loseLife();
-          // state = "mainMenu";
         }
 
         if (enemies.children.length === 0) {
@@ -167,13 +157,11 @@ const style = new TextStyle({
   wordWrapWidth: app.screen.width / 2 - 100,
 });
 
-const field = new Text("Start Game", style);
-field.interactive = true;
-field.buttonMode = true;
-field.position.x = app.screen.width / 2 - 100;
-field.position.y = app.screen.height / 2;
-mainScene.addChild(field);
-field.on("click", () => {
+const startGameField = new StartGameField(gameWidth, gameHeight, style);
+
+mainScene.addChild(startGameField);
+
+startGameField.on("click", () => {
   state = "game";
   app.stage.removeChild(mainScene);
   app.stage.addChild(gameScene);
