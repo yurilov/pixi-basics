@@ -1,6 +1,7 @@
 import Background from "./js/Background.js";
 import GameScore from "./js/GameScore.js";
 import Lives from "./js/Lives.js";
+import Enemies from "./js/Enemies.js";
 
 const { Application, Container, Sprite, TextStyle, Text } = PIXI;
 const canvas = document.querySelector("canvas");
@@ -22,6 +23,8 @@ let score = 0;
 let livesCount = 3;
 
 function createGameScene(gameScene, enemySpeed = 2) {
+  const enemyCount = 15;
+
   const background = new Background();
   gameScene.addChild(background);
 
@@ -31,7 +34,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const bullets = new Container();
   gameScene.addChild(bullets);
 
-  const enemies = new Container();
+  const enemies = new Enemies(enemyCount, gameWidth, gameHeight);
   gameScene.addChild(enemies);
 
   const stats = new GameScore(score);
@@ -51,15 +54,6 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const keysMaps = {};
   const speed = 10;
   const bulletSpeed = 15;
-
-  const enemyCount = 15;
-
-  for (let index = 0; index < enemyCount; index++) {
-    const enemy = Sprite.from("resources/enemy.png");
-    enemy.position.x = index * 65;
-    enemy.position.y = 50;
-    enemies.addChild(enemy);
-  }
 
   document.onkeydown = (event) => {
     keysMaps[event.code] = true;
