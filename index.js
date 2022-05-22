@@ -44,7 +44,7 @@ function createGameScene(gameScene, enemySpeed = 2) {
   let lastCollisionTime = 0;
   let isDamaged = false;
 
-  const background = new Background();
+  const background = new Background("./resources/bcg.png");
   gameScene.addChild(background);
 
   const spaceShip = new SpaceShip(
