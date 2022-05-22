@@ -47,19 +47,34 @@ function createGameScene(gameScene, enemySpeed = 2) {
   const background = new Background();
   gameScene.addChild(background);
 
-  const spaceShip = new SpaceShip(gameWidth, gameHeight, speed);
+  const spaceShip = new SpaceShip(
+    gameWidth,
+    gameHeight,
+    speed,
+    "./resources/player.png"
+  );
   gameScene.addChild(spaceShip);
 
-  const bullets = new Bullets();
+  const bullets = new Bullets("./resources/bullet.png");
   gameScene.addChild(bullets);
 
-  const enemies = new Enemies(enemyCount, gameWidth, gameHeight);
+  const enemies = new Enemies(
+    enemyCount,
+    gameWidth,
+    gameHeight,
+    "./resources/enemy.png"
+  );
   gameScene.addChild(enemies);
 
   const stats = new GameScore(score);
   gameScene.addChild(stats);
 
-  const lives = new Lives(livesCount, gameWidth, gameHeight);
+  const lives = new Lives(
+    livesCount,
+    gameWidth,
+    gameHeight,
+    "./resources/heart.png"
+  );
   gameScene.addChild(lives);
 
   document.onkeydown = (event) => {

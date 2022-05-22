@@ -6,13 +6,13 @@ export default class SpaceShip extends Container {
   #speed;
   #sprite;
 
-  constructor(gameWidth, gameHeight, speed) {
+  constructor(gameWidth, gameHeight, speed, imgPath) {
     super();
 
     this.#gameWidth = gameWidth;
     this.#gameHeight = gameHeight;
     this.#speed = speed;
-    this.#sprite = Sprite.from("../resources/player.png");
+    this.#sprite = Sprite.from(imgPath);
 
     this.setup();
   }
