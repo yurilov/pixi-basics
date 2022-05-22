@@ -11,7 +11,7 @@ import RestartField from "./js/RestartField.js";
 import NextLevelField from "./js/NextLevelField.js";
 import Style from "./js/Style.js";
 
-const { Application, Container, Sprite, TextStyle, Text } = PIXI;
+const { Application, Container } = PIXI;
 
 const canvas = document.querySelector("canvas");
 const gameWidth = 1000;
@@ -32,10 +32,11 @@ let score = 0;
 let livesCount = 3;
 let level = 0;
 
-function createGameScene(gameScene, enemySpeed = 2) {
+function createGameScene(gameScene) {
   const enemyCount = 15;
   let isMouseFlag = false;
   let lastBulletSpawnTime = 0;
+  let enemySpeed = 2;
   const spawnSpeed = 250;
   const keysMaps = {};
   const speed = 10;
@@ -209,10 +210,6 @@ app.stage.addChild(mainScene);
 app.ticker.add((delay) => {
   if (state === "game") {
     updateScene(delay);
-  }
-
-  if (state === "game" && level !== 0) {
-    //need to add logic for creating new levels
   }
 
   if (state === "mainMenu") {
