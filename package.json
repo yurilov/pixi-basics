@@ -4,8 +4,10 @@
   "description": "space-invaders-game",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack",
-    "watch": "webpack --watch"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   },
   "homepage": "https://github.com/yurilov/pixi-basics#readme",
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"

@@ -20,6 +20,10 @@ module.exports = {
           from: path.resolve(__dirname, "src", "resources"),
           to: path.resolve(__dirname, "dist", "resources"),
         },
+        {
+          from: path.resolve(__dirname, "src", "styles"),
+          to: path.resolve(__dirname, "dist", "styles"),
+        },
       ],
     }),
   ],
