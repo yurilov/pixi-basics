@@ -1,4 +1,4 @@
-const { Text } = PIXI;
+import { Text } from "pixi.js";
 
 export default class StartGameField extends Text {
   #gameWidth;

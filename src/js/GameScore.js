@@ -1,4 +1,4 @@
-const { Container, TextStyle, Text } = PIXI;
+import { Container, TextStyle, Text } from "pixi.js";
 
 export default class GameScore extends Container {
   #score;

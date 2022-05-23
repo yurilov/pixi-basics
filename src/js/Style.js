@@ -1,4 +1,4 @@
-const { TextStyle } = PIXI;
+import { TextStyle } from "pixi.js";
 
 export default class Style extends TextStyle {
   constructor(gameWidth) {

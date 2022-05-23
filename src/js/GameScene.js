@@ -1,4 +1,4 @@
-const { Application, Container, Sprite, TextStyle, Text } = PIXI;
+import { Application, Container, Sprite, TextStyle, Text } from "pixi.js";
 
 export class GameScene extends Container {
   constructor() {

@@ -1,3 +1,5 @@
+import { Application, Container } from "pixi.js";
+
 import Background from "./js/Background.js";
 import GameScore from "./js/GameScore.js";
 import Lives from "./js/Lives.js";
@@ -11,7 +13,7 @@ import RestartField from "./js/RestartField.js";
 import NextLevelField from "./js/NextLevelField.js";
 import Style from "./js/Style.js";
 
-const { Application, Container } = PIXI;
+// const { Application, Container } = PIXI;
 
 const canvas = document.querySelector("canvas");
 const gameWidth = 1000;

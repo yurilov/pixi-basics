@@ -1,11 +1,11 @@
-const { Text } = PIXI;
+import { Text } from "pixi.js";
 
-export default class NextLevelField extends Text {
+export default class RestartField extends Text {
   #gameWidth;
   #gameHeight;
 
   constructor(gameWidth, gameHeight, style) {
-    super("Next level", style);
+    super("Restart Game", style);
 
     this.#gameWidth = gameWidth;
     this.#gameHeight = gameHeight;

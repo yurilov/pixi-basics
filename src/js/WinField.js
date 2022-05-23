@@ -1,11 +1,14 @@
-const { Text } = PIXI;
+import { Text } from "pixi.js";
 
-export default class LoseField extends Text {
+export default class WinField extends Text {
   #gameWidth;
   #gameHeight;
 
-  constructor(gameWidth, gameHeight, style, score) {
-    super(`You lost. Final score is: ${score}`, style);
+  constructor(gameWidth, gameHeight, style, score, livesCount) {
+    super(
+      `You won. Final score is: ${score}. Lives left: ${livesCount}`,
+      style
+    );
 
     this.#gameWidth = gameWidth;
     this.#gameHeight = gameHeight;

@@ -1,4 +1,4 @@
-const { Container, Sprite } = PIXI;
+import { Container, Sprite } from "pixi.js";
 
 export default class Background extends Container {
   #bcgPath;
