@@ -1,17 +1,17 @@
 import { Application, Container } from "pixi.js";
 
-import Background from "./js/Background.js";
-import GameScore from "./js/GameScore.js";
-import Lives from "./js/Lives.js";
-import Enemies from "./js/Enemies.js";
-import StartGameField from "./js/StartGameField.js";
-import SpaceShip from "./js/SpaceShip.js";
-import Bullets from "./js/Bullets.js";
-import WinField from "./js/WinField.js";
-import LoseField from "./js/LoseField.js";
-import RestartField from "./js/RestartField.js";
-import NextLevelField from "./js/NextLevelField.js";
-import Style from "./js/Style.js";
+import Background from "./ts/Background";
+import GameScore from "./ts/GameScore";
+import Lives from "./ts/Lives";
+import Enemies from "./ts/Enemies";
+import StartGameField from "./ts/StartGameField";
+import SpaceShip from "./ts/SpaceShip";
+import Bullets from "./ts/Bullets";
+import WinField from "./ts/WinField";
+import LoseField from "./ts/LoseField";
+import RestartField from "./ts/RestartField";
+import NextLevelField from "./ts/NextLevelField";
+import Style from "./ts/Style";
 
 // const { Application, Container } = PIXI;
 

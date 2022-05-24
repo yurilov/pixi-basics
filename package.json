@@ -26,13 +26,17 @@
   },
   "homepage": "https://github.com/yurilov/pixi-basics#readme",
   "devDependencies": {
+    "@types/node": "^17.0.35",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.0"
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "pixi.js": "^6.3.2"
