@@ -13,8 +13,6 @@ import RestartField from "./ts/RestartField";
 import NextLevelField from "./ts/NextLevelField";
 import Style from "./ts/Style";
 
-// const { Application, Container } = PIXI;
-
 const canvas = document.querySelector("canvas");
 const gameWidth = 1000;
 const gameHeight = 600;
@@ -34,13 +32,13 @@ let score = 0;
 let livesCount = 3;
 let level = 0;
 
-function createGameScene(gameScene) {
+function createGameScene(gameScene:any) {
   const enemyCount = 15;
   let isMouseFlag = false;
   let lastBulletSpawnTime = 0;
   let enemySpeed = 2;
   const spawnSpeed = 250;
-  const keysMaps = {};
+  const keysMaps:any = {};
   const speed = 10;
   const bulletSpeed = 15;
   const collisionEffectDuration = 1000;
@@ -64,7 +62,6 @@ function createGameScene(gameScene) {
   const enemies = new Enemies(
     enemyCount,
     gameWidth,
-    gameHeight,
     "./resources/enemy.png"
   );
   gameScene.addChild(enemies);
@@ -75,7 +72,6 @@ function createGameScene(gameScene) {
   const lives = new Lives(
     livesCount,
     gameWidth,
-    gameHeight,
     "./resources/heart.png"
   );
   gameScene.addChild(lives);
@@ -88,15 +84,15 @@ function createGameScene(gameScene) {
     keysMaps[event.code] = false;
   };
 
-  document.onmousedown = (event) => {
+  document.onmousedown = () => {
     isMouseFlag = true;
   };
 
-  document.onmouseup = (event) => {
+  document.onmouseup = () => {
     isMouseFlag = false;
   };
 
-  return (delay) => {
+  return (delay:number) => {
     if (keysMaps["ArrowLeft"]) {
       spaceShip.moveSpriteLeft(delay);
     }
@@ -228,7 +224,7 @@ app.ticker.add((delay) => {
   }
 });
 
-function showWinScreen(score, livesCount) {
+function showWinScreen(score:number, livesCount:number) {
   const winField = new WinField(
     gameWidth,
     gameHeight,
@@ -248,7 +244,7 @@ function showWinScreen(score, livesCount) {
   });
 }
 
-function showLoseScreen(score) {
+function showLoseScreen(score:number) {
   const lostField = new LoseField(gameWidth, gameHeight, style, score);
   app.stage.addChild(lostField);
 

@@ -1,11 +1,11 @@
 import { Container, TextStyle, Text } from "pixi.js";
 
 export default class GameScore extends Container {
-  #score;
-  constructor(score) {
+  private score:number;
+  constructor(score:number) {
     super();
 
-    this.#score = score;
+    this.score = score;
     this.setup();
   }
 
@@ -16,12 +16,12 @@ export default class GameScore extends Container {
       fontFamily: "Arial",
     });
 
-    const scoreText = new Text(`Enemies killed: ${this.#score}`, scoreStyle);
+    const scoreText = new Text(`Enemies killed: ${this.score}`, scoreStyle);
     this.addChild(scoreText);
   }
 
-  updateScore(newScore) {
-    this.#score = newScore;
-    this.children[0].text = `Enemies killed: ${this.#score}`;
+  updateScore(newScore:number) {
+    this.score = newScore;
+    this.children[0].text = `Enemies killed: ${this.score}`;
   }
 }

@@ -1,7 +1,7 @@
 import { TextStyle } from "pixi.js";
 
 export default class Style extends TextStyle {
-  constructor(gameWidth) {
+  constructor(gameWidth:number) {
     super({
       fontFamily: "Arial",
       fill: "#FFF",

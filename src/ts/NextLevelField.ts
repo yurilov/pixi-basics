@@ -1,14 +1,14 @@
 import { Text } from "pixi.js";
 
 export default class NextLevelField extends Text {
-  #gameWidth;
-  #gameHeight;
+  private gameWidth:number;
+  private gameHeight:number;
 
-  constructor(gameWidth, gameHeight, style) {
+  constructor(gameWidth:number, gameHeight:number, style:object) {
     super("Next level", style);
 
-    this.#gameWidth = gameWidth;
-    this.#gameHeight = gameHeight;
+    this.gameWidth = gameWidth;
+    this.gameHeight = gameHeight;
 
     this.setup();
   }
@@ -16,7 +16,7 @@ export default class NextLevelField extends Text {
   setup() {
     this.interactive = true;
     this.buttonMode = true;
-    this.position.x = this.#gameWidth - this.width;
-    this.position.y = this.#gameHeight - this.height;
+    this.position.x = this.gameWidth - this.width;
+    this.position.y = this.gameHeight - this.height;
   }
 }
