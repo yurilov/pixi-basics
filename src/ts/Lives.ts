@@ -1,11 +1,11 @@
 import { Container, Sprite } from "pixi.js";
 
 export default class Lives extends Container {
-  private livesCount:number;
-  private gameWidth:number;
-  private imgPath:string;
+  private livesCount: number;
+  private gameWidth: number;
+  private imgPath: string;
 
-  constructor(livesCount:number, gameWidth:number, imgPath:string) {
+  constructor(livesCount: number, gameWidth: number, imgPath: string) {
     super();
 
     this.gameWidth = gameWidth;

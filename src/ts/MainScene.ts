@@ -1,0 +1,26 @@
+import { Container } from "pixi.js";
+import StartGameField from "./StartGameField";
+import Style from "./Style";
+
+export default class MainScene extends Container {
+  startGameField: StartGameField;
+  gameWidth: number;
+  gameHeight: number;
+  style: object;
+  constructor(gameWidth: number, gameHeight: number) {
+    super();
+    this.gameWidth = gameWidth;
+    this.gameHeight = gameHeight;
+    this.style = new Style(this.gameWidth);
+    this.startGameField = new StartGameField(
+      this.gameWidth,
+      this.gameHeight,
+      this.style
+    );
+    this.setup();
+  }
+
+  setup() {
+    this.addChild(this.startGameField);
+  }
+}

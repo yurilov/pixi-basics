@@ -1,8 +1,8 @@
 import { Container, TextStyle, Text } from "pixi.js";
 
 export default class GameScore extends Container {
-  private score:number;
-  constructor(score:number) {
+  private score: number;
+  constructor(score: number) {
     super();
 
     this.score = score;
@@ -20,7 +20,7 @@ export default class GameScore extends Container {
     this.addChild(scoreText);
   }
 
-  updateScore(newScore:number) {
+  updateScore(newScore: number) {
     this.score = newScore;
     this.children[0].text = `Enemies killed: ${this.score}`;
   }

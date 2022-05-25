@@ -1,10 +1,10 @@
 import { Text } from "pixi.js";
 
 export default class NextLevelField extends Text {
-  private gameWidth:number;
-  private gameHeight:number;
+  private gameWidth: number;
+  private gameHeight: number;
 
-  constructor(gameWidth:number, gameHeight:number, style:object) {
+  constructor(gameWidth: number, gameHeight: number, style: object) {
     super("Next level", style);
 
     this.gameWidth = gameWidth;

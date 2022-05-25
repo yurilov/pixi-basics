@@ -1,11 +1,11 @@
 import { Container, Sprite } from "pixi.js";
 
 export default class Enemies extends Container {
-  private enemyCount:number;
-  private gameHeight:number;
-  private imgPath:string;
+  private enemyCount: number;
+  private gameHeight: number;
+  private imgPath: string;
 
-  constructor(enemyCount:number, gameHeight:number, imgPath:string) {
+  constructor(enemyCount: number, gameHeight: number, imgPath: string) {
     super();
 
     this.gameHeight = gameHeight;

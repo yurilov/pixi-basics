@@ -1,10 +1,16 @@
 import { Text } from "pixi.js";
 
 export default class WinField extends Text {
-  private gameWidth:number;
-  private gameHeight:number;
+  private gameWidth: number;
+  private gameHeight: number;
 
-  constructor(gameWidth:number, gameHeight:number, style:object, score:number, livesCount:number) {
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    style: object,
+    score: number,
+    livesCount: number
+  ) {
     super(
       `You won. Final score is: ${score}. Lives left: ${livesCount}`,
       style

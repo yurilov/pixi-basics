@@ -4,7 +4,12 @@ export default class LoseField extends Text {
   private gameWidth;
   private gameHeight;
 
-  constructor(gameWidth:number, gameHeight:number, style:object, score:number) {
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    style: object,
+    score: number
+  ) {
     super(`You lost. Final score is: ${score}`, style);
 
     this.gameWidth = gameWidth;

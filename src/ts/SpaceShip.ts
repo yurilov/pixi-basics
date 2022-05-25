@@ -1,12 +1,17 @@
 import { Container, Sprite } from "pixi.js";
 
 export default class SpaceShip extends Container {
-  private gameWidth:number;
-  private gameHeight:number;
-  private speed:number;
+  private gameWidth: number;
+  private gameHeight: number;
+  private speed: number;
   private sprite;
 
-  constructor(gameWidth:number, gameHeight:number, speed:number, imgPath:string) {
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    speed: number,
+    imgPath: string
+  ) {
     super();
 
     this.gameWidth = gameWidth;
@@ -23,7 +28,7 @@ export default class SpaceShip extends Container {
     this.addChild(this.sprite);
   }
 
-  moveSpriteLeft(delay:number) {
+  moveSpriteLeft(delay: number) {
     this.sprite.position.x -= delay * this.speed;
 
     if (this.sprite.position.x <= 0) {
@@ -31,7 +36,7 @@ export default class SpaceShip extends Container {
     }
   }
 
-  moveSpriteRight(delay:number) {
+  moveSpriteRight(delay: number) {
     this.sprite.position.x += delay * this.speed;
 
     if (this.sprite.position.x >= this.gameWidth) {
@@ -39,11 +44,11 @@ export default class SpaceShip extends Container {
     }
   }
 
-  moveSpriteUp(delay:number) {
+  moveSpriteUp(delay: number) {
     this.sprite.position.y -= delay * this.speed;
   }
 
-  moveSpriteDown(delay:number) {
+  moveSpriteDown(delay: number) {
     this.sprite.position.y += delay * this.speed;
   }
 

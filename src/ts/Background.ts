@@ -1,8 +1,9 @@
 import { Container, Sprite } from "pixi.js";
 
 export default class Background extends Container {
-  private bcgPath:any;
-  constructor(bcgPath:any) {
+  private bcgPath: string;
+
+  constructor(bcgPath: string) {
     super();
     this.bcgPath = bcgPath;
     this.setup();
