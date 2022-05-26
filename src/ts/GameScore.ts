@@ -2,26 +2,27 @@ import { Container, TextStyle, Text } from "pixi.js";
 
 export default class GameScore extends Container {
   private score: number;
+  private scoreText: Text;
+  private scoreStyle: TextStyle;
   constructor(score: number) {
     super();
 
     this.score = score;
-    this.setup();
-  }
-
-  setup(): void {
-    const scoreStyle = new TextStyle({
+    this.scoreStyle = new TextStyle({
       fill: "#FFFFFF",
       fontSize: 20,
       fontFamily: "Arial",
     });
+    this.scoreText = new Text(`Enemies killed: ${this.score}`, this.scoreStyle);
+    this.setup();
+  }
 
-    const scoreText = new Text(`Enemies killed: ${this.score}`, scoreStyle);
-    this.addChild(scoreText);
+  setup(): void {
+    this.addChild(this.scoreText);
   }
 
   updateScore(newScore: number): void {
     this.score = newScore;
-    this.children[0].text = `Enemies killed: ${this.score}`;
+    this.scoreText.text = `Enemies killed: ${this.score}`;
   }
 }
