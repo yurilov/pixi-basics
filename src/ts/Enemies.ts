@@ -16,7 +16,7 @@ export default class Enemies extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     for (let index = 0; index < this.enemyCount; index++) {
       const heightMultiplier = Math.random() * 0.5;
       const enemy = Sprite.from(this.imgPath);

@@ -13,7 +13,7 @@ export default class StartGameField extends Text {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     this.interactive = true;
     this.buttonMode = true;
     this.position.x = this.gameWidth / 2 - this.width / 2;

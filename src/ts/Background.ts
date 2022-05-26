@@ -9,7 +9,7 @@ export default class Background extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     const backgroundImg = Sprite.from(this.bcgPath);
     this.addChild(backgroundImg);
   }

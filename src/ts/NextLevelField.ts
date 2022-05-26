@@ -13,7 +13,7 @@ export default class NextLevelField extends Text {
     this.setup();
   }
 
-  setup() {
+  setup():void {
     this.interactive = true;
     this.buttonMode = true;
     this.position.x = this.gameWidth - this.width;

@@ -20,7 +20,7 @@ export default class MainScene extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     this.addChild(this.startGameField);
   }
 }

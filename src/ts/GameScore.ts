@@ -9,7 +9,7 @@ export default class GameScore extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     const scoreStyle = new TextStyle({
       fill: "#FFFFFF",
       fontSize: 20,
@@ -20,7 +20,7 @@ export default class GameScore extends Container {
     this.addChild(scoreText);
   }
 
-  updateScore(newScore: number) {
+  updateScore(newScore: number): void {
     this.score = newScore;
     this.children[0].text = `Enemies killed: ${this.score}`;
   }

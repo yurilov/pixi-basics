@@ -4,7 +4,7 @@ export default class SpaceShip extends Container {
   private gameWidth: number;
   private gameHeight: number;
   private speed: number;
-  private sprite;
+  private sprite: Sprite;
 
   constructor(
     gameWidth: number,
@@ -22,13 +22,13 @@ export default class SpaceShip extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     this.sprite.position.x = this.gameWidth * 0.5;
     this.sprite.position.y = this.gameHeight * 0.9;
     this.addChild(this.sprite);
   }
 
-  moveSpriteLeft(delay: number) {
+  moveSpriteLeft(delay: number): void {
     this.sprite.position.x -= delay * this.speed;
 
     if (this.sprite.position.x <= 0) {
@@ -36,7 +36,7 @@ export default class SpaceShip extends Container {
     }
   }
 
-  moveSpriteRight(delay: number) {
+  moveSpriteRight(delay: number): void {
     this.sprite.position.x += delay * this.speed;
 
     if (this.sprite.position.x >= this.gameWidth) {
@@ -44,11 +44,11 @@ export default class SpaceShip extends Container {
     }
   }
 
-  moveSpriteUp(delay: number) {
+  moveSpriteUp(delay: number): void {
     this.sprite.position.y -= delay * this.speed;
   }
 
-  moveSpriteDown(delay: number) {
+  moveSpriteDown(delay: number): void {
     this.sprite.position.y += delay * this.speed;
   }
 

@@ -14,7 +14,7 @@ export default class Lives extends Container {
     this.setup();
   }
 
-  setup() {
+  setup(): void {
     for (let index = 0; index < this.livesCount; index++) {
       const heart = Sprite.from(this.imgPath);
       heart.width = 20;
@@ -26,7 +26,7 @@ export default class Lives extends Container {
     }
   }
 
-  loseLife() {
+  loseLife(): void {
     this.livesCount -= 1;
     this.children.pop();
   }

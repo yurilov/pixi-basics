@@ -33,7 +33,7 @@ export default class App extends Application {
     this.updateScene = this.createGameScene();
   }
 
-  setup() {
+  setup(): void {
     this.stage.addChild(this.mainScene);
 
     this.mainScene.startGameField.on("click", () => {
@@ -143,8 +143,8 @@ export default class App extends Application {
             this.gameScene.stats.updateScore(this.gameScene.score);
           }
           if (this.gameScene.enemies.children.length === 0) {
-            // this.parent.state = "winScreen";
-            // this.parent.showWinScreen(this.score, this.livesCount);
+            this.state = "winScreen";
+            this.showWinScreen(this.gameScene.score, this.gameScene.livesCount);
           }
         }
       }
@@ -185,7 +185,7 @@ export default class App extends Application {
     };
   }
 
-  showWinScreen(score: number, livesCount: number) {
+  showWinScreen(score: number, livesCount: number): void {
     const winField = new WinField(
       this.gameWidth,
       this.gameHeight,
@@ -197,7 +197,7 @@ export default class App extends Application {
     this.stage.addChild(winField);
   }
 
-  showLoseScreen(score: number) {
+  showLoseScreen(score: number): void {
     const lostField = new LoseField(
       this.gameWidth,
       this.gameHeight,

@@ -8,7 +8,7 @@ export default class Bullets extends Container {
     this.imgPath = imgPath;
   }
 
-  spawnBullet(spaceShip: any) {
+  spawnBullet(spaceShip: any): void {
     const bullet = Sprite.from(this.imgPath);
     bullet.position.x =
       spaceShip.getSpitePositionX() + spaceShip.getSpiteWidth() / 4;
