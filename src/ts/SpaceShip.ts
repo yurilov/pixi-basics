@@ -52,15 +52,15 @@ export default class SpaceShip extends Container {
     this.sprite.position.y += delay * this.speed;
   }
 
-  getSpitePositionX():number {
+  getSpitePositionX(): number {
     return this.sprite.position.x;
   }
 
-  getSpitePositionY():number {
+  getSpitePositionY(): number {
     return this.sprite.position.y;
   }
 
-  getSpiteWidth():number {
+  getSpiteWidth(): number {
     return this.sprite.width;
   }
 }
