@@ -46,6 +46,8 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@pixi/app": "^6.3.2",
+    "@pixi/display": "^6.3.2",
     "dat.gui": "^0.7.9",
     "pixi.js": "^6.3.2",
     "stats.js": "^0.17.0"
