@@ -1,8 +1,9 @@
 import { Container } from "pixi.js";
+import { IScene } from "./Manager/Manager";
 import StartGameField from "./StartGameField";
 import Style from "./Style";
 
-export default class MainScene extends Container {
+export default class MainScene extends Container implements IScene {
   startGameField: StartGameField;
   gameWidth: number;
   gameHeight: number;
@@ -23,4 +24,6 @@ export default class MainScene extends Container {
   setup(): void {
     this.addChild(this.startGameField);
   }
+
+  update() {}
 }

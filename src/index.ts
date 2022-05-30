@@ -1,19 +1,25 @@
-import App from "./ts/App";
+import { SceneManager } from "./ts/Manager/Manager";
+import { LoaderScene } from "./ts/Loader/LoaderScene";
 import Stats from "stats.js";
 
-const canvas = document.querySelector("canvas");
+// const canvas = document.querySelector("canvas");
 const gameWidth = 1000;
 const gameHeight = 600;
 
-const settings = {
-  view: canvas,
-  width: gameWidth,
-  height: gameHeight,
-  backgroundColor: 138298,
-};
+// const settings = {
+//   view: canvas,
+//   width: gameWidth,
+//   height: gameHeight,
+//   backgroundColor: 138298,
+// };
 
-const app = new App(settings);
-app.setup();
+// const app = new App(settings);
+// app.setup();
+
+SceneManager.initialize(gameWidth, gameHeight, 138298);
+
+const loady: LoaderScene = new LoaderScene();
+SceneManager.changeScene(loady);
 
 const stats = new Stats();
 stats.showPanel(0);
