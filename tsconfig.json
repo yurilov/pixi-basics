@@ -23,5 +23,5 @@
     // Folder for your code
     "include": [
         "./src/**/*"
-    ]
+, "unused/App.ts"    ]
 }

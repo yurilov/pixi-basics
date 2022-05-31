@@ -1,8 +1,8 @@
 import { Container } from "pixi.js";
-import GameScene from "./GameScene";
-import { IScene, SceneManager } from "./SceneManager/SceneManager";
-import StartGameField from "./StartGameField";
-import Style from "./Style";
+import GameScene from "../gameScene/GameScene";
+import { IScene, SceneManager } from "../sceneManager/SceneManager";
+import StartGameField from "./startGameField/StartGameField";
+import Style from "../gameScene/titleStyle/Style";
 
 export default class MainScene extends Container implements IScene {
   startGameField: StartGameField;

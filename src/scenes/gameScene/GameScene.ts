@@ -1,15 +1,15 @@
 import { Container } from "pixi.js";
-import Background from "./Background";
-import Bullets from "./Bullets";
-import Enemies from "./Enemies";
-import GameScore from "./GameScore";
-import Lives from "./Lives";
-import SpaceShip from "./SpaceShip";
-import WinField from "./WinField";
-import RestartField from "./RestartField";
-import LoseField from "./LoseField";
-import { SceneManager } from "./SceneManager/SceneManager";
-import Style from "./Style";
+import Background from "./background/Background";
+import Bullets from "./bullets/Bullets";
+import Enemies from "./enemies/Enemies";
+import GameScore from "./gameScore/GameScore";
+import Lives from "./lives/Lives";
+import SpaceShip from "./spaceShip/SpaceShip";
+import WinField from "./winField/WinField";
+import RestartField from "./restartField/RestartField";
+import LoseField from "./loseField/LoseField";
+import SceneManager from "../sceneManager/SceneManager";
+import Style from "./titleStyle/Style";
 
 export default class GameScene extends Container {
   gameWidth: number;
@@ -207,20 +207,21 @@ export default class GameScene extends Container {
       this.style,
       score
     );
-    this.addChild(lostField);
 
     const restartField = new RestartField(
       this.gameWidth,
       this.gameHeight,
       this.style
     );
-    this.addChild(restartField);
+    lostField.addChild(restartField);
     restartField.on("click", () => {
       this.state = "mainMenu";
       for (const child of this.children.slice()) {
         this.removeChild(child);
       }
     });
+
+    SceneManager.changeScene(lostField);
   }
 
   public stop(): void {

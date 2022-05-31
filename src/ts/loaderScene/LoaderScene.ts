@@ -1,9 +1,9 @@
 import { Container, Graphics, Loader } from "pixi.js";
-import { IScene, SceneManager } from "../SceneManager/SceneManager";
+import { IScene, SceneManager } from "../../scenes/sceneManager/SceneManager";
 
 import { assets } from "../../assets";
 // import GameScene from "../GameScene";
-import MainScene from "../MainScene";
+import MainScene from "../../scenes/mainScene/MainScene";
 
 export class LoaderScene extends Container implements IScene {
   private loaderBar: Container;

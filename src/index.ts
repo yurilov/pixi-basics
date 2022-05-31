@@ -1,5 +1,5 @@
-import { SceneManager } from "./ts/SceneManager/SceneManager";
-import { LoaderScene } from "./ts/Loader/LoaderScene";
+import SceneManager from "./scenes/sceneManager/SceneManager";
+import LoaderScene from "./scenes/loaderScene/LoaderScene";
 import Stats from "stats.js";
 
 // const canvas = document.querySelector("canvas");

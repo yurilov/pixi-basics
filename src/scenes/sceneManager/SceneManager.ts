@@ -53,3 +53,5 @@ export class SceneManager {
 export interface IScene extends DisplayObject {
   update(framesPassed: number): void;
 }
+
+export default SceneManager;
