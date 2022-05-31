@@ -8,7 +8,7 @@ import SpaceShip from "./SpaceShip";
 import WinField from "./WinField";
 import RestartField from "./RestartField";
 import LoseField from "./LoseField";
-import { SceneManager } from "./Manager/Manager";
+import { SceneManager } from "./SceneManager/SceneManager";
 import Style from "./Style";
 
 export default class GameScene extends Container {
@@ -65,27 +65,15 @@ export default class GameScene extends Container {
     this.isDamaged = false;
     this.score = 0;
     this.livesCount = livesCount;
-    this.background = new Background("../resources/bcg.png");
-    this.spaceShip = new SpaceShip(
-      this.gameWidth,
-      this.gameHeight,
-      this.speed,
-      "../resources/player.png"
-    );
-    this.bullets = new Bullets("../resources/bullet.png");
-    this.enemies = new Enemies(
-      this.enemyCount,
-      this.gameWidth,
-      "../resources/enemy.png"
-    );
+    this.background = new Background();
+    this.spaceShip = new SpaceShip(this.gameWidth, this.gameHeight, this.speed);
+    this.bullets = new Bullets();
+    this.enemies = new Enemies(this.enemyCount, this.gameHeight);
     this.stats = new GameScore(this.score);
-    this.lives = new Lives(
-      this.livesCount,
-      this.gameWidth,
-      "../resources/heart.png"
-    );
+    this.lives = new Lives(this.livesCount, this.gameWidth);
     this.state = "game";
     this._manager = manager;
+    this.start();
   }
 
   public update(delay: number): void {
@@ -209,7 +197,7 @@ export default class GameScene extends Container {
       livesCount
     );
 
-    this.addChild(winField);
+    SceneManager.changeScene(winField);
   }
 
   showLoseScreen(score: number): void {

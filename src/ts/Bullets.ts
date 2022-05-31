@@ -1,15 +1,14 @@
-import { Container, Sprite } from "pixi.js";
+import { Container, Sprite, Loader } from "pixi.js";
 
 export default class Bullets extends Container {
-  private imgPath: string;
-  constructor(imgPath: string) {
+  constructor() {
     super();
-
-    this.imgPath = imgPath;
   }
 
   spawnBullet(spaceShip: any): void {
-    const bullet = Sprite.from(this.imgPath);
+    const bulletImg = Loader.shared.resources["bullet"].url;
+
+    const bullet = Sprite.from(bulletImg);
     bullet.position.x =
       spaceShip.getSpitePositionX() + spaceShip.getSpiteWidth() / 4;
     bullet.position.y = spaceShip.getSpitePositionY();

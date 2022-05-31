@@ -1,4 +1,4 @@
-import { Container, Sprite } from "pixi.js";
+import { Container, Sprite, Loader } from "pixi.js";
 
 export default class SpaceShip extends Container {
   private gameWidth: number;
@@ -6,18 +6,14 @@ export default class SpaceShip extends Container {
   private speed: number;
   private sprite: Sprite;
 
-  constructor(
-    gameWidth: number,
-    gameHeight: number,
-    speed: number,
-    imgPath: string
-  ) {
+  constructor(gameWidth: number, gameHeight: number, speed: number) {
     super();
 
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.speed = speed;
-    this.sprite = Sprite.from(imgPath);
+    const playerImg = Loader.shared.resources["player"].url;
+    this.sprite = Sprite.from(playerImg);
 
     this.setup();
   }

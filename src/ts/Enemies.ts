@@ -1,17 +1,15 @@
-import { Container, Sprite } from "pixi.js";
+import { Container, Sprite, Loader } from "pixi.js";
 
 export default class Enemies extends Container {
   private enemyCount: number;
   private gameHeight: number;
-  private imgPath: string;
 
-  constructor(enemyCount: number, gameHeight: number, imgPath: string) {
+  constructor(enemyCount: number, gameHeight: number) {
     super();
 
     this.gameHeight = gameHeight;
 
     this.enemyCount = enemyCount;
-    this.imgPath = imgPath;
 
     this.setup();
   }
@@ -19,7 +17,9 @@ export default class Enemies extends Container {
   setup(): void {
     for (let index = 0; index < this.enemyCount; index++) {
       const heightMultiplier = Math.random() * 0.5;
-      const enemy = Sprite.from(this.imgPath);
+      const enemyImg = Loader.shared.resources["enemy"].url;
+
+      const enemy = Sprite.from(enemyImg);
       enemy.position.x = index * 65;
       enemy.position.y = this.gameHeight * heightMultiplier;
       this.addChild(enemy);

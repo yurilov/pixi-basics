@@ -1,16 +1,15 @@
-import { Container, Sprite } from "pixi.js";
+import { Container, Loader, Sprite } from "pixi.js";
 
 export default class Background extends Container {
-  private bcgPath: string;
-
-  constructor(bcgPath: string) {
+  constructor() {
     super();
-    this.bcgPath = bcgPath;
     this.setup();
   }
 
   setup(): void {
-    const backgroundImg = Sprite.from(this.bcgPath);
+    const bcg = Loader.shared.resources["bcg"].url;
+    console.log(bcg);
+    const backgroundImg = Sprite.from(bcg);
     this.addChild(backgroundImg);
   }
 }

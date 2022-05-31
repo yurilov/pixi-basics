@@ -1,5 +1,6 @@
 import { Container } from "pixi.js";
-import { IScene } from "./Manager/Manager";
+import GameScene from "./GameScene";
+import { IScene, SceneManager } from "./SceneManager/SceneManager";
 import StartGameField from "./StartGameField";
 import Style from "./Style";
 
@@ -8,7 +9,8 @@ export default class MainScene extends Container implements IScene {
   gameWidth: number;
   gameHeight: number;
   style: object;
-  constructor(gameWidth: number, gameHeight: number) {
+  protected _manager: SceneManager;
+  constructor(gameWidth: number, gameHeight: number, manager: SceneManager) {
     super();
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
@@ -18,7 +20,22 @@ export default class MainScene extends Container implements IScene {
       this.gameHeight,
       this.style
     );
+    this._manager = manager;
     this.setup();
+    this.startGameField.on("click", () => {
+      SceneManager.changeScene(
+        new GameScene(
+          SceneManager,
+          this.gameWidth,
+          this.gameHeight,
+          15,
+          2,
+          250,
+          10,
+          3
+        )
+      );
+    });
   }
 
   setup(): void {

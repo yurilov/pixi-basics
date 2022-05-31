@@ -26,4 +26,5 @@ export default class WinField extends Text {
     this.position.x = this.gameWidth / 2 - this.width / 2;
     this.position.y = this.gameHeight / 2 - this.height / 2;
   }
+  update() {}
 }

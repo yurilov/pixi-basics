@@ -1,4 +1,4 @@
-import { SceneManager } from "./ts/Manager/Manager";
+import { SceneManager } from "./ts/SceneManager/SceneManager";
 import { LoaderScene } from "./ts/Loader/LoaderScene";
 import Stats from "stats.js";
 
@@ -18,8 +18,8 @@ const gameHeight = 600;
 
 SceneManager.initialize(gameWidth, gameHeight, 138298);
 
-const loady: LoaderScene = new LoaderScene();
-SceneManager.changeScene(loady);
+const loaderScene: LoaderScene = new LoaderScene();
+SceneManager.changeScene(loaderScene);
 
 const stats = new Stats();
 stats.showPanel(0);
