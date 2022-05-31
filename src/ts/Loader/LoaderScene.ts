@@ -1,7 +1,7 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../SceneManager/SceneManager";
 
-import { assets } from "../assets";
+import { assets } from "../../assets";
 // import GameScene from "../GameScene";
 import MainScene from "../MainScene";
 
