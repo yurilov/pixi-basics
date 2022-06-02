@@ -2,7 +2,6 @@ import { Container, Graphics, Loader } from "pixi.js";
 import { IScene, SceneManager } from "../sceneManager/SceneManager";
 
 import { assets } from "../../assets";
-// import GameScene from "../GameScene";
 import MainScene from "../mainScene/MainScene";
 
 export default class LoaderScene extends Container implements IScene {
@@ -52,6 +51,6 @@ export default class LoaderScene extends Container implements IScene {
   }
 
   public update(framesPassed: number): void {
-    console.log(framesPassed);
+    framesPassed;
   }
 }
